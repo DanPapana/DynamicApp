@@ -1,9 +1,11 @@
 ﻿using DynamicApp.Abstractions;
 using DynamicApp.Shared;
 using System;
+using System.ComponentModel.Composition;
 
 namespace AnotherPaymentModule
 {
+    [Export(typeof(IDynamicModule))]
     public class AntotherPaymentModule : IDynamicModule
     {
         public string Name 

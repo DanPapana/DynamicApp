@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DynamicApp.Abstractions\DynamicApp.Abstractions.csproj" />
     <ProjectReference Include="..\DynamicApp.Shared\DynamicApp.Shared.csproj" />
   </ItemGroup>

@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using DynamicApp.Abstractions;
 using DynamicApp.Shared;
+using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition;
 
 namespace DynamicApp
 {
@@ -11,8 +13,24 @@ namespace DynamicApp
     {
         static void Main(string[] args)
         {
-            var currentDirectory = Directory.GetCurrentDirectory();
+            var catalog = new AggregateCatalog();
+
+            catalog.Catalogs.Add(new DirectoryCatalog("plugins", "*.dll"));
+
+            CompositionContainer container = new CompositionContainer(catalog);
+
             UIModuleLoader moduleLoader = new UIModuleLoader();
+
+            try
+            {
+                container.ComposeParts(moduleLoader);
+            }
+            catch (CompositionException compositionException)
+            {
+                Console.WriteLine(compositionException.ToString());
+            }
+
+            var currentDirectory = Directory.GetCurrentDirectory();
 
             try
             {
@@ -29,7 +47,7 @@ namespace DynamicApp
             {
                 Console.WriteLine("Unexpected exception occured while trying to load modules. " + e.Message);
             }            
-            
+
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
             List<IMenu> mainMenuItems = new List<IMenu>();

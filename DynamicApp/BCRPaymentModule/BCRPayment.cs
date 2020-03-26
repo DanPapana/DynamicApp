@@ -1,9 +1,11 @@
 ﻿using DynamicApp.Abstractions;
 using DynamicApp.Shared;
 using System;
+using System.ComponentModel.Composition;
 
 namespace BCRPaymentModule
 {
+    [Export(typeof(IDynamicModule))]
     public class BCPPayment : IDynamicModule
     {
         public string Name 
